@@ -1,26 +1,23 @@
 @import "tailwindcss";
 
+html {
+  /* Force light mode */
+  color-scheme: light;
+  /* Remove scrollbars */
+  overflow: hidden;
+}
+
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #F0F9FF;
+  --foreground: #1F2937;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
-
+/* Disable dark mode system preference detection */
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: "Roboto", Arial, Helvetica, sans-serif;
+  /* Remove scrollbars */
+  overflow: hidden;
+  height: 100vh;
 }

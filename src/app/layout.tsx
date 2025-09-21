@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Roboto } from "next/font/google";
 import "./globals.css";
 import MaterialIcon from "@/components/ui/MaterialIcons";
+import { Providers } from "@/components/providers/Providers";
 
 const roboto = Roboto({
   weight: ["400", "500", "700"],
@@ -20,11 +21,13 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body className={`${roboto.variable} font-display bg-background-light dark:bg-background-dark text-text-light dark:text-text-dark`}>
+    <html lang="en" className="light">
+      <body className={`${roboto.variable} font-display bg-background-light text-text-light`}>
         {/* This injects the Material Icons styles */}
         <MaterialIcon name="init" className="hidden" />
-        {children}
+        <Providers>
+          {children}
+        </Providers>
       </body>
     </html>
   );

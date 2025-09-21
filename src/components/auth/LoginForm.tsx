@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useState } from "react";
 import { useForm } from "react-hook-form";
@@ -7,11 +7,13 @@ import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { z } from "zod";
+import MaterialIcon from "@/components/ui/MaterialIcons";
 
 const loginSchema = z.object({
   email: z.string().email("Invalid email address").optional(),
   phone: z.string().min(10, "Invalid phone number").optional(),
   password: z.string().min(6, "Password must be at least 6 characters"),
+  rememberMe: z.boolean().optional(),
 }).refine((data) => {
   return data.email || data.phone;
 }, {
@@ -25,172 +27,202 @@ export default function LoginForm() {
   const router = useRouter();
   const [error, setError] = useState<string | null>(null);
   const [loginMethod, setLoginMethod] = useState<"email" | "phone">("email");
+  const [isLoading, setIsLoading] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
+  
   const {
     register,
     handleSubmit,
-    formState: { errors, isSubmitting },
+    formState: { errors },
   } = useForm<LoginFormData>({
     resolver: zodResolver(loginSchema),
   });
 
   const onSubmit = async (data: LoginFormData) => {
     try {
+      setIsLoading(true);
+      setError(null);
+
+      const identifier = loginMethod === "email" ? data.email : data.phone;
+      
       const result = await signIn("credentials", {
-        ...data,
+        email: loginMethod === "email" ? identifier : "",
+        password: data.password,
         redirect: false,
       });
 
       if (result?.error) {
-        setError("Invalid email or password");
+        setError("Invalid credentials");
         return;
       }
 
-      router.refresh();
       router.push("/dashboard");
     } catch (error) {
-      setError("Something went wrong. Please try again.");
+      setError("An error occurred during sign in");
+    } finally {
+      setIsLoading(false);
     }
   };
 
   return (
-    <div className="bg-foreground-light dark:bg-foreground-dark p-8 rounded-lg shadow-md">
-      <div className="grid grid-cols-2 gap-2 mb-6 bg-gray-100 dark:bg-gray-700 p-1 rounded-lg">
+    <>
+      {/* Login Method Toggle */}
+      <div className="grid grid-cols-2 gap-2 mb-6 bg-gray-100 p-1 rounded-lg">
         <button
           type="button"
           onClick={() => setLoginMethod("email")}
-          className={`px-4 py-2 text-sm font-medium ${
+          className={`px-4 py-2 text-sm font-medium rounded-md cursor-pointer ${
             loginMethod === "email"
-              ? "text-white bg-primary rounded-md"
-              : "text-text-light dark:text-text-dark"
+              ? "text-white"
+              : "text-text-light"
           }`}
+          style={loginMethod === "email" ? {backgroundColor: 'rgb(59 130 246 / var(--tw-bg-opacity, 1))'} : {}}
         >
           Email
         </button>
         <button
           type="button"
           onClick={() => setLoginMethod("phone")}
-          className={`px-4 py-2 text-sm font-medium ${
+          className={`px-4 py-2 text-sm font-medium rounded-md cursor-pointer ${
             loginMethod === "phone"
-              ? "text-white bg-primary rounded-md"
-              : "text-text-light dark:text-text-dark"
+              ? "text-white"
+              : "text-text-light"
           }`}
+          style={loginMethod === "phone" ? {backgroundColor: 'rgb(59 130 246 / var(--tw-bg-opacity, 1))'} : {}}
         >
           Phone
         </button>
       </div>
 
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
-        {error && (
-          <div className="rounded-md bg-red-50 p-4">
-            <p className="text-sm text-red-700">{error}</p>
-          </div>
-        )}
-
+        {/* Email/Phone Input */}
         <div>
           <label
-            className="block text-sm font-medium text-text-light dark:text-text-dark"
-            htmlFor={loginMethod === "email" ? "email" : "phone"}
+            htmlFor={loginMethod}
+            className="block text-sm font-medium text-text-light"
           >
             {loginMethod === "email" ? "Email Address" : "Phone Number"}
           </label>
           <div className="mt-1 relative rounded-md shadow-sm">
             <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-              <span className="material-icons text-gray-400">
-                {loginMethod === "email" ? "mail_outline" : "phone"}
-              </span>
+              <MaterialIcon 
+                name={loginMethod === "email" ? "mail_outline" : "phone"} 
+                className="text-gray-400"
+              />
             </div>
             <input
+              id={loginMethod}
               type={loginMethod === "email" ? "email" : "tel"}
-              id={loginMethod === "email" ? "email" : "phone"}
-              {...register(loginMethod === "email" ? "email" : "phone")}
-              className="block w-full pl-10 pr-3 py-2 border border-border-light dark:border-border-dark rounded-md leading-5 bg-white dark:bg-gray-800 text-text-light dark:text-text-dark placeholder-gray-400 focus:outline-none focus:ring-primary focus:border-primary sm:text-sm"
-              placeholder={
-                loginMethod === "email"
-                  ? "Enter your email"
-                  : "Enter your phone number"
-              }
+              autoComplete={loginMethod === "email" ? "email" : "tel"}
+              placeholder={loginMethod === "email" ? "Enter your email" : "Enter your phone number"}
+              {...register(loginMethod)}
+              className="block w-full pl-10 pr-3 py-2 border-0 rounded-md leading-5 bg-white text-text-light placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary shadow-sm sm:text-sm"
             />
-            {errors[loginMethod === "email" ? "email" : "phone"] && (
-              <p className="mt-1 text-sm text-red-600">
-                {errors[loginMethod === "email" ? "email" : "phone"]?.message}
-              </p>
-            )}
           </div>
+          {errors[loginMethod] && (
+            <p className="mt-1 text-sm text-red-600">{errors[loginMethod]?.message}</p>
+          )}
         </div>
 
+        {/* Password Input */}
         <div>
           <label
-            className="block text-sm font-medium text-text-light dark:text-text-dark"
             htmlFor="password"
+            className="block text-sm font-medium text-text-light"
           >
             Password
           </label>
           <div className="mt-1 relative rounded-md shadow-sm">
             <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-              <span className="material-icons text-gray-400">lock_outline</span>
+              <MaterialIcon name="lock_outline" className="text-gray-400" />
             </div>
             <input
-              type="password"
               id="password"
-              {...register("password")}
-              className="block w-full pl-10 pr-3 py-2 border border-border-light dark:border-border-dark rounded-md leading-5 bg-white dark:bg-gray-800 text-text-light dark:text-text-dark placeholder-gray-400 focus:outline-none focus:ring-primary focus:border-primary sm:text-sm"
+              type={showPassword ? "text" : "password"}
+              autoComplete="current-password"
               placeholder="Enter your password"
+              {...register("password")}
+              className="block w-full pl-10 pr-12 py-2 border-0 rounded-md leading-5 bg-white text-text-light placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary shadow-sm sm:text-sm"
             />
-            {errors.password && (
-              <p className="mt-1 text-sm text-red-600">
-                {errors.password.message}
-              </p>
-            )}
+            <div className="absolute inset-y-0 right-0 pr-3 flex items-center justify-center">
+              <button
+                type="button"
+                onClick={() => setShowPassword(!showPassword)}
+                className="text-gray-400 hover:text-gray-600 focus:outline-none flex items-center justify-center"
+                style={{ cursor: 'pointer' }}
+              >
+                <MaterialIcon 
+                  name={showPassword ? "visibility_off" : "visibility"} 
+                  className="text-gray-400 hover:text-gray-600"
+                />
+              </button>
+            </div>
           </div>
+          {errors.password && (
+            <p className="mt-1 text-sm text-red-600">{errors.password.message}</p>
+          )}
         </div>
 
+        {/* Remember Me & Forgot Password */}
         <div className="flex items-center justify-between">
           <div className="flex items-center">
             <input
               id="remember-me"
-              name="remember-me"
               type="checkbox"
-              className="h-4 w-4 text-primary focus:ring-primary border-border-light dark:border-border-dark rounded"
+              {...register("rememberMe")}
+              className="h-4 w-4 text-primary focus:ring-primary border-gray-300 rounded"
+              style={{ cursor: 'pointer' }}
             />
             <label
               htmlFor="remember-me"
-              className="ml-2 block text-sm text-text-light dark:text-text-dark"
+              className="ml-2 block text-sm text-subtext-light"
+              style={{ cursor: 'pointer' }}
             >
               Remember me
             </label>
           </div>
-          <Link
-            href="/auth/forgot-password"
-            className="text-sm text-primary hover:text-primary/80"
-          >
-            Forgot password?
-          </Link>
+          <div className="text-sm">
+            <Link
+              href="/auth/forgot-password"
+              className="font-medium hover:text-blue-500"
+              style={{color: 'rgb(59 130 246 / var(--tw-bg-opacity, 1))'}}
+            >
+              Forgot Password?
+            </Link>
+          </div>
         </div>
 
-        <button
-          type="submit"
-          disabled={isSubmitting}
-          className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-primary hover:bg-primary/90 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary"
-        >
-          {isSubmitting ? (
-            <span className="material-icons animate-spin">circle</span>
-          ) : (
-            "Sign in"
-          )}
-        </button>
+        {/* Error Message */}
+        {error && (
+          <div className="text-sm text-red-600 text-center">{error}</div>
+        )}
 
-        <div className="text-center">
-          <p className="text-sm text-subtext-light dark:text-subtext-dark">
-            Don&apos;t have an account?{" "}
-            <Link
-              href="/auth/signup"
-              className="font-medium text-primary hover:text-primary/80"
-            >
-              Sign up
-            </Link>
-          </p>
+        {/* Submit Button */}
+        <div>
+          <button
+            type="submit"
+            disabled={isLoading}
+            className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer"
+            style={{backgroundColor: 'rgb(59 130 246 / var(--tw-bg-opacity, 1))'}}
+          >
+            {isLoading ? "Signing In..." : "Sign In"}
+          </button>
         </div>
       </form>
-    </div>
+
+      {/* Sign Up Link */}
+      <div className="text-center mt-6">
+        <p className="text-sm text-subtext-light">
+          Don't have an account?{" "}
+          <Link
+            href="/auth/signup"
+            className="font-medium hover:text-blue-500"
+            style={{color: 'rgb(59 130 246 / var(--tw-bg-opacity, 1))'}}
+          >
+            Sign up
+          </Link>
+        </p>
+      </div>
+    </>
   );
 }
