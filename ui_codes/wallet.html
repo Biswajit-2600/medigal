@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>MedConsult Wallet</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,typography"></script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet"
+    />
+    <script>
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              primary: "#007BFF", // Using a generic blue as primary
+              "background-light": "#F8FAFC",
+              "background-dark": "#1E293B",
+              "card-light": "#FFFFFF",
+              "card-dark": "#334155",
+              "text-light": "#334155",
+              "text-dark": "#E2E8F0",
+              "subtext-light": "#64748B",
+              "subtext-dark": "#94A3B8",
+              success: "#10B981",
+              danger: "#EF4444",
+            },
+            fontFamily: {
+              sans: ["Inter", "sans-serif"],
+            },
+            borderRadius: {
+              DEFAULT: "0.5rem",
+            },
+          },
+        },
+      };
+    </script>
+    <style>
+      .material-icons {
+        font-size: inherit;
+      }
+    </style>
+  </head>
+  <body
+    class="bg-background-light dark:bg-background-dark font-sans text-text-light dark:text-text-dark"
+  >
+    <div class="flex flex-col min-h-screen">
+      <header class="bg-card-light dark:bg-card-dark shadow-sm">
+        <div
+          class="container mx-auto px-6 py-4 flex justify-between items-center"
+        >
+          <div class="flex items-center space-x-2">
+            <span class="material-icons text-primary text-3xl"
+              >medical_services</span
+            >
+            <h1 class="text-2xl font-bold text-text-light dark:text-text-dark">
+              MedConsult
+            </h1>
+          </div>
+          <nav class="flex items-center space-x-6">
+            <a
+              class="text-subtext-light dark:text-subtext-dark hover:text-primary dark:hover:text-primary"
+              href="#"
+              >Dashboard</a
+            >
+            <a
+              class="text-subtext-light dark:text-subtext-dark hover:text-primary dark:hover:text-primary"
+              href="#"
+              >Profile</a
+            >
+            <a class="text-primary font-semibold" href="#">Wallet</a>
+            <a class="text-danger font-semibold" href="#">Logout</a>
+          </nav>
+        </div>
+      </header>
+      <main class="flex-grow container mx-auto px-6 py-8">
+        <div class="mb-8">
+          <h2 class="text-3xl font-bold text-text-light dark:text-text-dark">
+            Wallet
+          </h2>
+          <p class="text-subtext-light dark:text-subtext-dark mt-1">
+            Manage your coins and view transaction history
+          </p>
+        </div>
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+          <div class="lg:col-span-2">
+            <div
+              class="bg-gradient-to-br from-teal-500 to-blue-600 rounded-lg p-8 text-white shadow-lg flex flex-col justify-between h-full"
+            >
+              <div>
+                <div class="flex justify-between items-start">
+                  <div>
+                    <p class="text-lg">Available Balance</p>
+                    <p class="text-5xl font-bold mt-2">
+                      150 <span class="text-3xl font-normal">coins</span>
+                    </p>
+                  </div>
+                  <div class="bg-white/20 rounded-full p-3">
+                    <span class="material-icons text-4xl text-white"
+                      >savings</span
+                    >
+                  </div>
+                </div>
+                <div class="mt-4 pt-4 border-t border-white/30">
+                  <p class="text-gray-200">
+                    Ready for AI medical consultations
+                  </p>
+                </div>
+              </div>
+              <div class="mt-8">
+                <button
+                  class="bg-white text-teal-600 font-semibold py-3 px-6 rounded-lg flex items-center space-x-2 hover:bg-gray-100 transition-colors"
+                >
+                  <span class="material-icons">add_circle_outline</span>
+                  <span>Recharge Wallet</span>
+                </button>
+              </div>
+            </div>
+          </div>
+          <div class="space-y-6">
+            <div
+              class="bg-card-light dark:bg-card-dark p-6 rounded-lg shadow-sm"
+            >
+              <h3
+                class="text-xl font-semibold mb-4 text-text-light dark:text-text-dark"
+              >
+                Quick Stats
+              </h3>
+              <div class="space-y-4">
+                <div
+                  class="flex justify-between items-center bg-blue-50 dark:bg-blue-900/50 p-3 rounded-lg"
+                >
+                  <div class="flex items-center space-x-3">
+                    <div class="bg-blue-100 dark:bg-blue-800 p-2 rounded-full">
+                      <span class="material-icons text-blue-500"
+                        >chat_bubble_outline</span
+                      >
+                    </div>
+                    <span class="text-subtext-light dark:text-subtext-dark"
+                      >Total Chat Sessions</span
+                    >
+                  </div>
+                  <span class="font-bold text-blue-500 text-lg">24</span>
+                </div>
+                <div
+                  class="flex justify-between items-center bg-green-50 dark:bg-green-900/50 p-3 rounded-lg"
+                >
+                  <div class="flex items-center space-x-3">
+                    <div
+                      class="bg-green-100 dark:bg-green-800 p-2 rounded-full"
+                    >
+                      <span class="material-icons text-green-500">toll</span>
+                    </div>
+                    <span class="text-subtext-light dark:text-subtext-dark"
+                      >Coins Spent</span
+                    >
+                  </div>
+                  <span class="font-bold text-green-500 text-lg">304</span>
+                </div>
+                <div
+                  class="flex justify-between items-center bg-purple-50 dark:bg-purple-900/50 p-3 rounded-lg"
+                >
+                  <div class="flex items-center space-x-3">
+                    <div
+                      class="bg-purple-100 dark:bg-purple-800 p-2 rounded-full"
+                    >
+                      <span class="material-icons text-purple-500">send</span>
+                    </div>
+                    <span class="text-subtext-light dark:text-subtext-dark"
+                      >Messages Sent</span
+                    >
+                  </div>
+                  <span class="font-bold text-purple-500 text-lg">152</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 mt-8">
+          <div class="lg:col-span-2">
+            <div
+              class="bg-card-light dark:bg-card-dark p-6 rounded-lg shadow-sm"
+            >
+              <h3
+                class="text-xl font-semibold mb-4 text-text-light dark:text-text-dark"
+              >
+                Transaction History
+              </h3>
+              <div class="space-y-4">
+                <div
+                  class="flex items-center justify-between py-4 border-b border-gray-200 dark:border-gray-700"
+                >
+                  <div class="flex items-center space-x-4">
+                    <div class="bg-red-100 dark:bg-red-900/50 p-3 rounded-full">
+                      <span class="material-icons text-danger">logout</span>
+                    </div>
+                    <div>
+                      <p
+                        class="font-semibold text-text-light dark:text-text-dark"
+                      >
+                        AI Chat Session - Headache Questions
+                      </p>
+                      <p
+                        class="text-sm text-subtext-light dark:text-subtext-dark"
+                      >
+                        12 messages sent
+                      </p>
+                      <p
+                        class="text-sm text-subtext-light dark:text-subtext-dark"
+                      >
+                        15/01/2024 at 14:30
+                      </p>
+                    </div>
+                  </div>
+                  <div class="text-right">
+                    <p class="font-bold text-danger text-lg">-24 coins</p>
+                    <p
+                      class="text-sm text-subtext-light dark:text-subtext-dark"
+                    >
+                      2 coins per message
+                    </p>
+                  </div>
+                </div>
+                <div class="flex items-center justify-between py-4">
+                  <div class="flex items-center space-x-4">
+                    <div
+                      class="bg-green-100 dark:bg-green-900/50 p-3 rounded-full"
+                    >
+                      <span
+                        class="material-icons text-success transform -rotate-45"
+                        >arrow_downward</span
+                      >
+                    </div>
+                    <div>
+                      <p
+                        class="font-semibold text-text-light dark:text-text-dark"
+                      >
+                        Wallet Recharge
+                      </p>
+                      <p
+                        class="text-sm text-subtext-light dark:text-subtext-dark"
+                      >
+                        Credit Card (****1234)
+                      </p>
+                      <p
+                        class="text-sm text-subtext-light dark:text-subtext-dark"
+                      >
+                        14/01/2024 at 09:15
+                      </p>
+                    </div>
+                  </div>
+                  <div>
+                    <p class="font-bold text-success text-lg">+50 coins</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div>
+            <div
+              class="bg-card-light dark:bg-card-dark p-6 rounded-lg shadow-sm"
+            >
+              <h3
+                class="text-xl font-semibold mb-4 text-text-light dark:text-text-dark"
+              >
+                Chat Pricing
+              </h3>
+              <div class="space-y-4">
+                <div
+                  class="flex justify-between items-center text-subtext-light dark:text-subtext-dark"
+                >
+                  <span>Per Message Cost</span>
+                  <span
+                    class="font-semibold text-text-light dark:text-text-dark"
+                    >2 coins</span
+                  >
+                </div>
+                <div
+                  class="flex justify-between items-center text-subtext-light dark:text-subtext-dark"
+                >
+                  <span>Average Session (10 messages)</span>
+                  <span
+                    class="font-semibold text-text-light dark:text-text-dark"
+                    >20 coins</span
+                  >
+                </div>
+                <div
+                  class="flex justify-between items-center text-subtext-light dark:text-subtext-dark"
+                >
+                  <span>Long Session (25 messages)</span>
+                  <span
+                    class="font-semibold text-text-light dark:text-text-dark"
+                    >50 coins</span
+                  >
+                </div>
+                <div
+                  class="flex justify-between items-center text-subtext-light dark:text-subtext-dark mt-4 pt-4 border-t border-gray-200 dark:border-gray-700"
+                >
+                  <span>Best Value (100+ coins)</span>
+                  <span class="font-bold text-success">+15% bonus</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
+  </body>
+</html>

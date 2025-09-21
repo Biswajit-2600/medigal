@@ -42,14 +42,14 @@ export default function ForgotPasswordForm() {
             instructions.
           </p>
         </div>
-        <Button
-          as={Link}
-          href="/auth/login"
-          variant="outline"
-          className="w-full"
-        >
-          Return to login
-        </Button>
+        <Link href="/auth/login">
+          <Button
+            variant="outline"
+            className="w-full"
+          >
+            Return to login
+          </Button>
+        </Link>
       </div>
     );
   }

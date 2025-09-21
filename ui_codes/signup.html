@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Create Account</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,typography"></script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&amp;display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet"
+    />
+    <script>
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              primary: "#16A34A",
+              "background-light": "#F0FDF4",
+              "background-dark": "#111827",
+              "card-light": "#FFFFFF",
+              "card-dark": "#1F2937",
+              "text-light": "#374151",
+              "text-dark": "#E5E7EB",
+              "subtext-light": "#6B7280",
+              "subtext-dark": "#9CA3AF",
+              "border-light": "#E5E7EB",
+              "border-dark": "#374151",
+            },
+            fontFamily: {
+              display: ["Poppins", "sans-serif"],
+            },
+            borderRadius: {
+              DEFAULT: "0.5rem",
+            },
+          },
+        },
+      };
+    </script>
+  </head>
+  <body
+    class="font-display bg-background-light dark:bg-background-dark text-text-light dark:text-text-dark"
+  >
+    <div
+      class="min-h-screen flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8"
+    >
+      <div class="w-full max-w-md space-y-8">
+        <div class="text-center">
+          <div
+            class="mx-auto flex items-center justify-center w-12 h-12 rounded-full bg-primary"
+          >
+            <span class="material-icons text-white">person_add</span>
+          </div>
+          <h2
+            class="mt-6 text-3xl font-bold tracking-tight text-text-light dark:text-text-dark"
+          >
+            Create Account
+          </h2>
+          <p class="mt-2 text-sm text-subtext-light dark:text-subtext-dark">
+            Join us for professional medical consultation
+          </p>
+        </div>
+        <div class="bg-card-light dark:bg-card-dark p-8 shadow-lg rounded-lg">
+          <form action="#" class="space-y-6" method="POST">
+            <div>
+              <label
+                class="block text-sm font-medium text-text-light dark:text-text-dark"
+                for="full-name"
+                >Full Name</label
+              >
+              <div class="mt-1 relative rounded-md shadow-sm">
+                <div
+                  class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3"
+                >
+                  <span
+                    class="material-icons text-subtext-light dark:text-subtext-dark"
+                    >person_outline</span
+                  >
+                </div>
+                <input
+                  class="block w-full rounded-md border-border-light dark:border-border-dark bg-background-light dark:bg-background-dark py-2 pl-10 pr-3 text-sm placeholder:text-subtext-light dark:placeholder:text-subtext-dark focus:border-primary focus:outline-none focus:ring-primary"
+                  id="full-name"
+                  name="full-name"
+                  placeholder="Enter your full name"
+                  required=""
+                  type="text"
+                />
+              </div>
+            </div>
+            <div class="flex rounded-md bg-gray-100 dark:bg-gray-700 p-1">
+              <button
+                class="w-1/2 py-2 text-sm font-medium text-white bg-primary rounded-md shadow-sm"
+                type="button"
+              >
+                Email
+              </button>
+              <button
+                class="w-1/2 py-2 text-sm font-medium text-subtext-light dark:text-subtext-dark"
+                type="button"
+              >
+                Phone
+              </button>
+            </div>
+            <div>
+              <label
+                class="block text-sm font-medium text-text-light dark:text-text-dark"
+                for="email-address"
+                >Email Address</label
+              >
+              <div class="mt-1 relative rounded-md shadow-sm">
+                <div
+                  class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3"
+                >
+                  <span
+                    class="material-icons text-subtext-light dark:text-subtext-dark"
+                    >email</span
+                  >
+                </div>
+                <input
+                  autocomplete="email"
+                  class="block w-full rounded-md border-border-light dark:border-border-dark bg-background-light dark:bg-background-dark py-2 pl-10 pr-3 text-sm placeholder:text-subtext-light dark:placeholder:text-subtext-dark focus:border-primary focus:outline-none focus:ring-primary"
+                  id="email-address"
+                  name="email-address"
+                  placeholder="Enter your email"
+                  required=""
+                  type="email"
+                />
+              </div>
+            </div>
+            <div>
+              <label
+                class="block text-sm font-medium text-text-light dark:text-text-dark"
+                for="password"
+                >Password</label
+              >
+              <div class="mt-1 relative rounded-md shadow-sm">
+                <div
+                  class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3"
+                >
+                  <span
+                    class="material-icons text-subtext-light dark:text-subtext-dark"
+                    >lock</span
+                  >
+                </div>
+                <input
+                  autocomplete="new-password"
+                  class="block w-full rounded-md border-border-light dark:border-border-dark bg-background-light dark:bg-background-dark py-2 pl-10 pr-3 text-sm placeholder:text-subtext-light dark:placeholder:text-subtext-dark focus:border-primary focus:outline-none focus:ring-primary"
+                  id="password"
+                  name="password"
+                  placeholder="Create a password"
+                  required=""
+                  type="password"
+                />
+              </div>
+            </div>
+            <div>
+              <label
+                class="block text-sm font-medium text-text-light dark:text-text-dark"
+                for="confirm-password"
+                >Confirm Password</label
+              >
+              <div class="mt-1 relative rounded-md shadow-sm">
+                <div
+                  class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3"
+                >
+                  <span
+                    class="material-icons text-subtext-light dark:text-subtext-dark"
+                    >lock</span
+                  >
+                </div>
+                <input
+                  autocomplete="new-password"
+                  class="block w-full rounded-md border-border-light dark:border-border-dark bg-background-light dark:bg-background-dark py-2 pl-10 pr-3 text-sm placeholder:text-subtext-light dark:placeholder:text-subtext-dark focus:border-primary focus:outline-none focus:ring-primary"
+                  id="confirm-password"
+                  name="confirm-password"
+                  placeholder="Confirm your password"
+                  required=""
+                  type="password"
+                />
+              </div>
+            </div>
+            <div class="flex items-center">
+              <input
+                class="h-4 w-4 rounded border-gray-300 dark:border-gray-600 bg-gray-100 dark:bg-gray-700 text-primary focus:ring-primary"
+                id="terms-and-privacy"
+                name="terms-and-privacy"
+                type="checkbox"
+              />
+              <label
+                class="ml-2 block text-sm text-subtext-light dark:text-subtext-dark"
+                for="terms-and-privacy"
+              >
+                I agree to the
+                <a
+                  class="font-medium text-primary hover:text-green-600"
+                  href="#"
+                  >Terms of Service</a
+                >
+                and
+                <a
+                  class="font-medium text-primary hover:text-green-600"
+                  href="#"
+                  >Privacy Policy</a
+                >
+              </label>
+            </div>
+            <div>
+              <button
+                class="group relative flex w-full justify-center rounded-md border border-transparent bg-primary py-2 px-4 text-sm font-medium text-white hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
+                type="submit"
+              >
+                Create Account
+              </button>
+            </div>
+          </form>
+          <div class="mt-6 text-center">
+            <p class="text-sm text-subtext-light dark:text-subtext-dark">
+              Already have an account?
+              <a class="font-medium text-primary hover:text-green-600" href="#">
+                Sign in
+              </a>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

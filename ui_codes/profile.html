@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>MedConsult Profile</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,typography"></script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet"
+    />
+    <script>
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              primary: "#2563EB",
+              "background-light": "#F9FAFB",
+              "background-dark": "#111827",
+              "card-light": "#FFFFFF",
+              "card-dark": "#1F2937",
+              "text-light": "#1F2937",
+              "text-dark": "#F9FAFB",
+              "subtext-light": "#6B7280",
+              "subtext-dark": "#9CA3AF",
+              "border-light": "#E5E7EB",
+              "border-dark": "#374151",
+              success: "#10B981",
+            },
+            fontFamily: {
+              display: ["Inter", "sans-serif"],
+            },
+            borderRadius: {
+              DEFAULT: "0.5rem",
+            },
+          },
+        },
+      };
+    </script>
+  </head>
+  <body class="bg-background-light dark:bg-background-dark font-display">
+    <div class="flex flex-col lg:flex-row min-h-screen">
+      <main class="w-full">
+        <header
+          class="sticky top-0 z-10 bg-card-light dark:bg-card-dark border-b border-border-light dark:border-border-dark flex items-center justify-between px-6 py-4"
+        >
+          <div class="flex items-center space-x-2">
+            <span class="material-icons text-primary text-3xl"
+              >medical_services</span
+            >
+            <h1 class="text-xl font-bold text-text-light dark:text-text-dark">
+              MedConsult
+            </h1>
+          </div>
+          <div class="flex items-center space-x-6">
+            <a
+              class="text-subtext-light dark:text-subtext-dark hover:text-primary dark:hover:text-primary"
+              href="#"
+              >Dashboard</a
+            >
+            <a class="text-primary font-semibold" href="#">Profile</a>
+            <a
+              class="text-subtext-light dark:text-subtext-dark hover:text-primary dark:hover:text-primary"
+              href="#"
+              >Wallet</a
+            >
+            <a class="text-red-500 font-semibold" href="#">Logout</a>
+          </div>
+          <button class="lg:hidden text-subtext-light dark:text-subtext-dark">
+            <span class="material-icons">menu</span>
+          </button>
+        </header>
+        <div class="p-6 lg:p-8 grid grid-cols-1 lg:grid-cols-3 gap-8">
+          <div class="lg:col-span-2">
+            <div class="mb-8">
+              <h2
+                class="text-3xl font-bold text-text-light dark:text-text-dark"
+              >
+                Profile
+              </h2>
+              <p class="text-subtext-light dark:text-subtext-dark mt-1">
+                Manage your account information and view your chat history
+              </p>
+            </div>
+            <div
+              class="bg-card-light dark:bg-card-dark p-6 rounded-lg shadow-sm mb-8"
+            >
+              <div class="flex justify-between items-center mb-6">
+                <h3
+                  class="text-xl font-semibold text-text-light dark:text-text-dark"
+                >
+                  Personal Information
+                </h3>
+                <button
+                  class="flex items-center space-x-2 text-primary font-semibold"
+                >
+                  <span class="material-icons text-lg">edit</span>
+                  <span>Edit Profile</span>
+                </button>
+              </div>
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div>
+                  <label
+                    class="text-sm font-medium text-subtext-light dark:text-subtext-dark"
+                    >Full Name</label
+                  >
+                  <div
+                    class="mt-2 flex items-center bg-background-light dark:bg-background-dark border border-border-light dark:border-border-dark rounded-md p-3"
+                  >
+                    <span
+                      class="material-icons text-subtext-light dark:text-subtext-dark mr-3"
+                      >person_outline</span
+                    >
+                    <p class="text-text-light dark:text-text-dark">
+                      Dr. Sarah Johnson
+                    </p>
+                  </div>
+                </div>
+                <div>
+                  <label
+                    class="text-sm font-medium text-subtext-light dark:text-subtext-dark"
+                    >Email Address</label
+                  >
+                  <div
+                    class="mt-2 flex items-center bg-background-light dark:bg-background-dark border border-border-light dark:border-border-dark rounded-md p-3"
+                  >
+                    <span
+                      class="material-icons text-subtext-light dark:text-subtext-dark mr-3"
+                      >email_outline</span
+                    >
+                    <p class="text-text-light dark:text-text-dark">
+                      sarah.johnson@email.com
+                    </p>
+                  </div>
+                </div>
+                <div>
+                  <label
+                    class="text-sm font-medium text-subtext-light dark:text-subtext-dark"
+                    >Phone Number</label
+                  >
+                  <div
+                    class="mt-2 flex items-center bg-background-light dark:bg-background-dark border border-border-light dark:border-border-dark rounded-md p-3"
+                  >
+                    <span
+                      class="material-icons text-subtext-light dark:text-subtext-dark mr-3"
+                      >phone_outline</span
+                    >
+                    <p class="text-text-light dark:text-text-dark">
+                      +1 (555) 123-4567
+                    </p>
+                  </div>
+                </div>
+                <div>
+                  <label
+                    class="text-sm font-medium text-subtext-light dark:text-subtext-dark"
+                    >Date of Birth</label
+                  >
+                  <div
+                    class="mt-2 flex items-center bg-background-light dark:bg-background-dark border border-border-light dark:border-border-dark rounded-md p-3"
+                  >
+                    <span
+                      class="material-icons text-subtext-light dark:text-subtext-dark mr-3"
+                      >calendar_today</span
+                    >
+                    <p class="text-text-light dark:text-text-dark">
+                      15-06-1985
+                    </p>
+                  </div>
+                </div>
+                <div class="md:col-span-2">
+                  <label
+                    class="text-sm font-medium text-subtext-light dark:text-subtext-dark"
+                    >Address</label
+                  >
+                  <div
+                    class="mt-2 flex items-center bg-background-light dark:bg-background-dark border border-border-light dark:border-border-dark rounded-md p-3"
+                  >
+                    <span
+                      class="material-icons text-subtext-light dark:text-subtext-dark mr-3"
+                      >location_on_outline</span
+                    >
+                    <p class="text-text-light dark:text-text-dark">
+                      123 Medical Center Drive, New York, NY 10001
+                    </p>
+                  </div>
+                </div>
+                <div class="md:col-span-2">
+                  <label
+                    class="text-sm font-medium text-subtext-light dark:text-subtext-dark"
+                    >Emergency Contact</label
+                  >
+                  <div
+                    class="mt-2 flex items-center bg-background-light dark:bg-background-dark border border-border-light dark:border-border-dark rounded-md p-3"
+                  >
+                    <span
+                      class="material-icons text-subtext-light dark:text-subtext-dark mr-3"
+                      >contact_phone_outline</span
+                    >
+                    <p class="text-text-light dark:text-text-dark">
+                      John Johnson - +1 (555) 987-6543
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div
+              class="bg-card-light dark:bg-card-dark p-6 rounded-lg shadow-sm"
+            >
+              <div class="flex justify-between items-center mb-6">
+                <h3
+                  class="text-xl font-semibold text-text-light dark:text-text-dark"
+                >
+                  Chat History
+                </h3>
+                <button class="text-primary font-semibold">
+                  Start New Chat
+                </button>
+              </div>
+            </div>
+          </div>
+          <aside class="lg:col-span-1 space-y-8">
+            <div
+              class="bg-card-light dark:bg-card-dark p-6 rounded-lg shadow-sm flex flex-col items-center"
+            >
+              <div
+                class="w-24 h-24 rounded-full bg-blue-100 dark:bg-blue-900/50 flex items-center justify-center mb-4"
+              >
+                <span class="material-icons text-primary text-5xl">person</span>
+              </div>
+              <h3 class="text-xl font-bold text-text-light dark:text-text-dark">
+                Dr. Sarah Johnson
+              </h3>
+              <p class="text-subtext-light dark:text-subtext-dark text-sm">
+                Patient ID: #MP12345
+              </p>
+              <div
+                class="bg-blue-50 dark:bg-blue-900/30 text-primary px-4 py-2 rounded-lg mt-4 text-center"
+              >
+                <p class="text-sm font-medium">Member since</p>
+                <p class="font-semibold">January 2024</p>
+              </div>
+            </div>
+            <div
+              class="bg-card-light dark:bg-card-dark p-6 rounded-lg shadow-sm"
+            >
+              <div class="flex justify-between items-center mb-4">
+                <h3
+                  class="text-xl font-semibold text-text-light dark:text-text-dark"
+                >
+                  Wallet Balance
+                </h3>
+                <span
+                  class="material-icons text-subtext-light dark:text-subtext-dark"
+                  >account_balance_wallet</span
+                >
+              </div>
+              <p class="text-5xl font-bold text-text-light dark:text-text-dark">
+                150
+              </p>
+              <p class="text-subtext-light dark:text-subtext-dark mb-6">
+                Coins Available
+              </p>
+              <button
+                class="w-full bg-success text-white font-semibold py-3 rounded-lg flex items-center justify-center space-x-2 hover:bg-green-600 transition-colors"
+              >
+                <span class="material-icons">add</span>
+                <span>Add Coins</span>
+              </button>
+            </div>
+            <div
+              class="bg-card-light dark:bg-card-dark p-6 rounded-lg shadow-sm"
+            >
+              <h3
+                class="text-xl font-semibold text-text-light dark:text-text-dark mb-4"
+              >
+                Chat Statistics
+              </h3>
+            </div>
+          </aside>
+        </div>
+      </main>
+    </div>
+  </body>
+</html>

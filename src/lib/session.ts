@@ -6,7 +6,7 @@ export async function requireAuth() {
   const session = await getServerSession(authOptions);
   
   if (!session) {
-    redirect("/auth/login");
+    await redirect("/auth/login");
   }
 
   return session;
@@ -16,6 +16,6 @@ export async function requireNoAuth() {
   const session = await getServerSession(authOptions);
   
   if (session) {
-    redirect("/dashboard");
+    await redirect("/dashboard");
   }
 }

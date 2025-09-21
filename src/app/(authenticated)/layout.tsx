@@ -1,5 +1,7 @@
 import { ReactNode } from "react";
-import { requireAuth } from "@/lib/session";
+import { getServerSession } from "next-auth";
+import { redirect } from "next/navigation";
+import { authOptions } from "@/lib/auth";
 import BottomNav from "@/components/navigation/BottomNav";
 import AppHeader from "@/components/navigation/AppHeader";
 
@@ -8,7 +10,11 @@ interface LayoutProps {
 }
 
 export default async function DashboardLayout({ children }: LayoutProps) {
-  const session = await requireAuth();
+  const session = await getServerSession(authOptions);
+  if (!session?.user) {
+    await redirect("/auth/login");
+    return null;
+  }
 
   return (
     <div className="flex min-h-screen flex-col">
