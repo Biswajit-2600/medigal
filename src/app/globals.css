@@ -3,8 +3,6 @@
 html {
   /* Force light mode */
   color-scheme: light;
-  /* Remove scrollbars */
-  overflow: hidden;
 }
 
 :root {
@@ -17,7 +15,4 @@ body {
   background: var(--background);
   color: var(--foreground);
   font-family: "Roboto", Arial, Helvetica, sans-serif;
-  /* Remove scrollbars */
-  overflow: hidden;
-  height: 100vh;
 }

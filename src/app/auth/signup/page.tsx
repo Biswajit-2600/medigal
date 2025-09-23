@@ -6,21 +6,29 @@ export default async function SignupPage() {
   await requireNoAuth();
   
   return (
-    <div className="min-h-screen flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8 bg-background-light dark:bg-background-dark">
-      <div className="w-full max-w-md space-y-8">
-        <div className="text-center">
-          <div className="mx-auto flex items-center justify-center w-12 h-12 rounded-full bg-primary">
-            <span className="material-icons text-white">person_add</span>
+    <div className="bg-background-light font-display">
+      <div className="py-8 px-4">
+        <div className="w-full max-w-md mx-auto space-y-8">
+          <div className="text-center">
+            <div className="inline-flex items-center justify-center w-16 h-16 mb-6 rounded-full" style={{backgroundColor: 'rgb(59 130 246 / var(--tw-bg-opacity, 1))'}}>
+              <MaterialIcon name="person_add" className="text-white" style={{fontSize: '36px'}} />
+            </div>
+            <h1 className="text-3xl font-bold text-text-light">
+              Create Account
+            </h1>
+            <p className="mt-2 text-subtext-light">
+              Join us for professional medical consultation
+            </p>
           </div>
-          <h2 className="mt-6 text-3xl font-bold tracking-tight text-text-light dark:text-text-dark">
-            Create Account
-          </h2>
-          <p className="mt-2 text-sm text-subtext-light dark:text-subtext-dark">
-            Join us for professional medical consultation
-          </p>
-        </div>
-        <div className="bg-card-light dark:bg-card-dark p-8 shadow-lg rounded-lg">
-          <SignupForm />
+          <div 
+            className="p-8 rounded-lg shadow-md mb-8" 
+            style={{
+              backgroundColor: 'rgb(255, 255, 255)',
+              '--tw-bg-opacity': 1
+            } as React.CSSProperties}
+          >
+            <SignupForm />
+          </div>
         </div>
       </div>
     </div>

@@ -33,10 +33,28 @@ export default function LoginForm() {
   const {
     register,
     handleSubmit,
+    watch,
     formState: { errors },
   } = useForm<LoginFormData>({
     resolver: zodResolver(loginSchema),
   });
+
+  // Watch form values to enable/disable submit button
+  const watchedValues = watch();
+  const isFormValid = () => {
+    const identifier = loginMethod === "email" ? watchedValues.email : watchedValues.phone;
+    const password = watchedValues.password;
+    
+    // Check if identifier exists and has minimum length
+    const hasValidIdentifier = identifier && identifier.trim().length > 0;
+    // For email, also check basic email format
+    if (loginMethod === "email") {
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      return hasValidIdentifier && emailRegex.test(identifier) && password && password.length >= 6;
+    }
+    // For phone, check minimum 10 digits
+    return hasValidIdentifier && identifier.length >= 10 && password && password.length >= 6;
+  };
 
   const onSubmit = async (data: LoginFormData) => {
     try {
@@ -201,9 +219,13 @@ export default function LoginForm() {
         <div>
           <button
             type="submit"
-            disabled={isLoading}
-            className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer"
-            style={{backgroundColor: 'rgb(59 130 246 / var(--tw-bg-opacity, 1))'}}
+            disabled={isLoading || !isFormValid()}
+            className={`w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary ${
+              isLoading || !isFormValid() 
+                ? 'text-gray-400 bg-gray-300 cursor-not-allowed' 
+                : 'text-white hover:bg-blue-700 cursor-pointer'
+            }`}
+            style={isFormValid() && !isLoading ? {backgroundColor: 'rgb(59 130 246 / var(--tw-bg-opacity, 1))'} : {}}
           >
             {isLoading ? "Signing In..." : "Sign In"}
           </button>

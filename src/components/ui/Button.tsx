@@ -23,9 +23,9 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
     ref
   ) => {
     const variants = {
-      primary: "bg-blue-600 text-white hover:bg-blue-700",
-      secondary: "bg-gray-600 text-white hover:bg-gray-700",
-      outline: "border-2 border-blue-600 text-blue-600 hover:bg-blue-50",
+      primary: "text-white hover:bg-blue-700 cursor-pointer",
+      secondary: "bg-gray-600 text-white hover:bg-gray-700 cursor-pointer",
+      outline: "border-2 border-blue-600 text-blue-600 hover:bg-blue-50 cursor-pointer",
     };
 
     const sizes = {
@@ -44,6 +44,11 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
           sizes[size],
           className
         )}
+        style={
+          variant === "primary" && !disabled && !isLoading
+            ? { backgroundColor: 'rgb(59 130 246)' }
+            : {}
+        }
         {...props}
       >
         {isLoading ? (

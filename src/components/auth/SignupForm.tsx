@@ -10,7 +10,8 @@ import { z } from "zod";
 import MaterialIcon from "../ui/MaterialIcons";
 
 const signupSchema = z.object({
-  name: z.string().min(1, "Full name is required"),
+  firstName: z.string().min(1, "First name is required"),
+  lastName: z.string().min(1, "Last name is required"),
   loginMethod: z.enum(["email", "phone"]),
   email: z.string().email("Invalid email address").optional(),
   phone: z.string().min(10, "Invalid phone number").optional(),
@@ -40,6 +41,8 @@ type SignupFormData = z.infer<typeof signupSchema>;
 export default function SignupForm() {
   const router = useRouter();
   const [error, setError] = useState<string | null>(null);
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const {
     register,
     handleSubmit,
@@ -48,10 +51,12 @@ export default function SignupForm() {
     setValue,
     getValues,
     trigger,
+    clearErrors,
   } = useForm<SignupFormData>({
     resolver: zodResolver(signupSchema),
     defaultValues: {
-      name: "",
+      firstName: "",
+      lastName: "",
       loginMethod: "email",
       email: "",
       phone: "",
@@ -62,6 +67,30 @@ export default function SignupForm() {
   });
 
   const loginMethod = watch("loginMethod");
+  
+  // Watch form values to enable/disable submit button
+  const watchedValues = watch();
+  const isFormValid = () => {
+    const { firstName, lastName, email, phone, password, confirmPassword, acceptTerms } = watchedValues;
+    
+    // Check all required fields
+    const hasFirstName = firstName && firstName.trim().length > 0;
+    const hasLastName = lastName && lastName.trim().length > 0;
+    const hasPassword = password && password.length >= 6;
+    const hasConfirmPassword = confirmPassword && confirmPassword === password;
+    const hasAcceptedTerms = acceptTerms;
+    
+    // Check identifier based on login method
+    let hasValidIdentifier = false;
+    if (loginMethod === "email") {
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      hasValidIdentifier = !!(email && emailRegex.test(email));
+    } else {
+      hasValidIdentifier = !!(phone && phone.length >= 10);
+    }
+    
+    return hasFirstName && hasLastName && hasValidIdentifier && hasPassword && hasConfirmPassword && hasAcceptedTerms;
+  };
 
   const onSubmit = async (data: SignupFormData) => {
     try {
@@ -101,148 +130,180 @@ export default function SignupForm() {
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
       {error && (
-        <div className="rounded-md bg-red-50 dark:bg-red-900/50 p-4">
-          <p className="text-sm text-red-700 dark:text-red-200">{error}</p>
+        <div className="rounded-md bg-red-50 p-4">
+          <p className="text-sm text-red-700">{error}</p>
         </div>
       )}
 
-      <div>
-        <label
-          className="block text-sm font-medium text-text-light dark:text-text-dark"
-          htmlFor="full-name"
-        >
-          Full Name
-        </label>
-        <div className="mt-1 relative rounded-md shadow-sm">
-          <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
-            <MaterialIcon
-              name="person_outline"
-              className="text-subtext-light dark:text-subtext-dark"
+      <div className="grid grid-cols-2 gap-4">
+        <div>
+          <label
+            className="block text-sm font-medium text-text-light"
+            htmlFor="first-name"
+          >
+            First Name
+          </label>
+          <div className="mt-1 relative rounded-md shadow-sm">
+            <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+              <MaterialIcon
+                name="person_outline"
+                className="text-gray-400"
+              />
+            </div>
+            <input
+              {...register("firstName")}
+              type="text"
+              className="block w-full pl-10 pr-3 py-2 border-0 rounded-md leading-5 bg-white text-text-light placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary shadow-sm sm:text-sm"
+              placeholder="First name"
             />
+            {errors.firstName && (
+              <p className="mt-1 text-sm text-red-600 dark:text-red-400">
+                {errors.firstName.message}
+              </p>
+            )}
           </div>
-          <input
-            {...register("name")}
-            type="text"
-            className="block w-full rounded-md border-border-light dark:border-border-dark bg-background-light dark:bg-background-dark py-2 pl-10 pr-3 text-sm placeholder:text-subtext-light dark:placeholder:text-subtext-dark focus:border-primary focus:outline-none focus:ring-primary"
-            placeholder="Enter your full name"
-          />
-          {errors.name && (
-            <p className="mt-1 text-sm text-red-600 dark:text-red-400">
-              {errors.name.message}
-            </p>
-          )}
+        </div>
+        
+        <div>
+          <label
+            className="block text-sm font-medium text-text-light"
+            htmlFor="last-name"
+          >
+            Last Name
+          </label>
+          <div className="mt-1 relative rounded-md shadow-sm">
+            <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+              <MaterialIcon
+                name="person_outline"
+                className="text-gray-400"
+              />
+            </div>
+            <input
+              {...register("lastName")}
+              type="text"
+              className="block w-full pl-10 pr-3 py-2 border-0 rounded-md leading-5 bg-white text-text-light placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary shadow-sm sm:text-sm"
+              placeholder="Last name"
+            />
+            {errors.lastName && (
+              <p className="mt-1 text-sm text-red-600 dark:text-red-400">
+                {errors.lastName.message}
+              </p>
+            )}
+          </div>
         </div>
       </div>
 
-      <div className="flex rounded-md bg-gray-100 dark:bg-gray-700 p-1">
+      <div className="grid grid-cols-2 gap-2 mb-6 bg-gray-100 p-1 rounded-lg">
         <button
           type="button"
           onClick={() => {
+            setError(null); // Clear any errors
             setValue("loginMethod", "email");
-            trigger(["email", "phone"]);
+            setValue("phone", ""); // Clear phone value
+            clearErrors(["email", "phone"]); // Clear field errors
           }}
-          className={`w-1/2 py-2 text-sm font-medium ${
+          className={`px-4 py-2 text-sm font-medium rounded-md cursor-pointer ${
             loginMethod === "email"
-              ? "text-white bg-primary rounded-md shadow-sm"
-              : "text-subtext-light dark:text-subtext-dark"
+              ? "text-white"
+              : "text-text-light"
           }`}
+          style={loginMethod === "email" ? {backgroundColor: 'rgb(59 130 246 / var(--tw-bg-opacity, 1))'} : {}}
         >
           Email
         </button>
         <button
           type="button"
           onClick={() => {
+            setError(null); // Clear any errors
             setValue("loginMethod", "phone");
-            trigger(["email", "phone"]);
+            setValue("email", ""); // Clear email value
+            clearErrors(["email", "phone"]); // Clear field errors
           }}
-          className={`w-1/2 py-2 text-sm font-medium ${
+          className={`px-4 py-2 text-sm font-medium rounded-md cursor-pointer ${
             loginMethod === "phone"
-              ? "text-white bg-primary rounded-md shadow-sm"
-              : "text-subtext-light dark:text-subtext-dark"
+              ? "text-white"
+              : "text-text-light"
           }`}
+          style={loginMethod === "phone" ? {backgroundColor: 'rgb(59 130 246 / var(--tw-bg-opacity, 1))'} : {}}
         >
           Phone
         </button>
       </div>
 
-      {loginMethod === "email" ? (
-        <div>
-          <label
-            className="block text-sm font-medium text-text-light dark:text-text-dark"
-            htmlFor="email"
-          >
-            Email Address
-          </label>
-          <div className="mt-1 relative rounded-md shadow-sm">
-            <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
-              <MaterialIcon
-                name="email"
-                className="text-subtext-light dark:text-subtext-dark"
-              />
-            </div>
+      <div>
+        <label
+          className="block text-sm font-medium text-text-light"
+          htmlFor="email"
+        >
+          {loginMethod === "email" ? "Email Address" : "Phone Number"}
+        </label>
+        <div className="mt-1 relative rounded-md shadow-sm">
+          <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+            <MaterialIcon
+              name={loginMethod === "email" ? "email" : "phone"}
+              className="text-gray-400"
+            />
+          </div>
+          {loginMethod === "email" ? (
             <input
               {...register("email")}
               type="email"
-              className="block w-full rounded-md border-border-light dark:border-border-dark bg-background-light dark:bg-background-dark py-2 pl-10 pr-3 text-sm placeholder:text-subtext-light dark:placeholder:text-subtext-dark focus:border-primary focus:outline-none focus:ring-primary"
+              className="block w-full pl-10 pr-3 py-2 border-0 rounded-md leading-5 bg-white text-text-light placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary shadow-sm sm:text-sm"
               placeholder="Enter your email"
             />
-            {errors.email && (
-              <p className="mt-1 text-sm text-red-600 dark:text-red-400">
-                {errors.email.message}
-              </p>
-            )}
-          </div>
-        </div>
-      ) : (
-        <div>
-          <label
-            className="block text-sm font-medium text-text-light dark:text-text-dark"
-            htmlFor="phone"
-          >
-            Phone Number
-          </label>
-          <div className="mt-1 relative rounded-md shadow-sm">
-            <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
-              <MaterialIcon
-                name="phone"
-                className="text-subtext-light dark:text-subtext-dark"
-              />
-            </div>
+          ) : (
             <input
               {...register("phone")}
               type="tel"
-              className="block w-full rounded-md border-border-light dark:border-border-dark bg-background-light dark:bg-background-dark py-2 pl-10 pr-3 text-sm placeholder:text-subtext-light dark:placeholder:text-subtext-dark focus:border-primary focus:outline-none focus:ring-primary"
+              className="block w-full pl-10 pr-3 py-2 border-0 rounded-md leading-5 bg-white text-text-light placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary shadow-sm sm:text-sm"
               placeholder="Enter your phone number"
             />
-            {errors.phone && (
-              <p className="mt-1 text-sm text-red-600 dark:text-red-400">
-                {errors.phone.message}
-              </p>
-            )}
-          </div>
+          )}
+          {errors.email && loginMethod === "email" && (
+            <p className="mt-1 text-sm text-red-600 dark:text-red-400">
+              {errors.email.message}
+            </p>
+          )}
+          {errors.phone && loginMethod === "phone" && (
+            <p className="mt-1 text-sm text-red-600 dark:text-red-400">
+              {errors.phone.message}
+            </p>
+          )}
         </div>
-      )}
+      </div>
 
       <div>
         <label
-          className="block text-sm font-medium text-text-light dark:text-text-dark"
+          className="block text-sm font-medium text-text-light"
           htmlFor="password"
         >
           Password
         </label>
         <div className="mt-1 relative rounded-md shadow-sm">
-          <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
+          <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
             <MaterialIcon
               name="lock"
-              className="text-subtext-light dark:text-subtext-dark"
+              className="text-gray-400"
             />
           </div>
           <input
             {...register("password")}
-            type="password"
-            className="block w-full rounded-md border-border-light dark:border-border-dark bg-background-light dark:bg-background-dark py-2 pl-10 pr-3 text-sm placeholder:text-subtext-light dark:placeholder:text-subtext-dark focus:border-primary focus:outline-none focus:ring-primary"
+            type={showPassword ? "text" : "password"}
+            className="block w-full pl-10 pr-10 py-2 border-0 rounded-md leading-5 bg-white text-text-light placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary shadow-sm sm:text-sm"
             placeholder="Create a password"
           />
+          <div className="absolute inset-y-0 right-0 pr-3 flex items-center">
+            <button
+              type="button"
+              className="text-gray-400 hover:text-gray-600 focus:outline-none cursor-pointer flex items-center justify-center"
+              onClick={() => setShowPassword(!showPassword)}
+            >
+              <MaterialIcon
+                name={showPassword ? "visibility_off" : "visibility"}
+                className="text-gray-400"
+              />
+            </button>
+          </div>
           {errors.password && (
             <p className="mt-1 text-sm text-red-600 dark:text-red-400">
               {errors.password.message}
@@ -253,24 +314,36 @@ export default function SignupForm() {
 
       <div>
         <label
-          className="block text-sm font-medium text-text-light dark:text-text-dark"
+          className="block text-sm font-medium text-text-light"
           htmlFor="confirm-password"
         >
           Confirm Password
         </label>
         <div className="mt-1 relative rounded-md shadow-sm">
-          <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
+          <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
             <MaterialIcon
               name="lock"
-              className="text-subtext-light dark:text-subtext-dark"
+              className="text-gray-400"
             />
           </div>
           <input
             {...register("confirmPassword")}
-            type="password"
-            className="block w-full rounded-md border-border-light dark:border-border-dark bg-background-light dark:bg-background-dark py-2 pl-10 pr-3 text-sm placeholder:text-subtext-light dark:placeholder:text-subtext-dark focus:border-primary focus:outline-none focus:ring-primary"
+            type={showConfirmPassword ? "text" : "password"}
+            className="block w-full pl-10 pr-10 py-2 border-0 rounded-md leading-5 bg-white text-text-light placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary shadow-sm sm:text-sm"
             placeholder="Confirm your password"
           />
+          <div className="absolute inset-y-0 right-0 pr-3 flex items-center">
+            <button
+              type="button"
+              className="text-gray-400 hover:text-gray-600 focus:outline-none cursor-pointer flex items-center justify-center"
+              onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+            >
+              <MaterialIcon
+                name={showConfirmPassword ? "visibility_off" : "visibility"}
+                className="text-gray-400"
+              />
+            </button>
+          </div>
           {errors.confirmPassword && (
             <p className="mt-1 text-sm text-red-600 dark:text-red-400">
               {errors.confirmPassword.message}
@@ -283,23 +356,27 @@ export default function SignupForm() {
         <input
           {...register("acceptTerms")}
           type="checkbox"
-          className="h-4 w-4 rounded border-gray-300 dark:border-gray-600 bg-gray-100 dark:bg-gray-700 text-primary focus:ring-primary"
+          className="h-4 w-4 text-primary focus:ring-primary border-gray-300 rounded"
+          style={{ cursor: 'pointer' }}
         />
         <label
-          className="ml-2 block text-sm text-subtext-light dark:text-subtext-dark"
+          className="ml-2 block text-sm text-subtext-light"
           htmlFor="terms-and-privacy"
+          style={{ cursor: 'pointer' }}
         >
           I agree to the{" "}
           <Link
             href="/terms"
-            className="font-medium text-primary hover:text-primary/80"
+            className="font-medium hover:text-blue-500"
+            style={{color: 'rgb(59 130 246 / var(--tw-bg-opacity, 1))'}}
           >
             Terms of Service
           </Link>{" "}
           and{" "}
           <Link
             href="/privacy"
-            className="font-medium text-primary hover:text-primary/80"
+            className="font-medium hover:text-blue-500"
+            style={{color: 'rgb(59 130 246 / var(--tw-bg-opacity, 1))'}}
           >
             Privacy Policy
           </Link>
@@ -308,8 +385,13 @@ export default function SignupForm() {
 
       <button
         type="submit"
-        disabled={isSubmitting}
-        className="group relative flex w-full justify-center rounded-md border border-transparent bg-primary py-2 px-4 text-sm font-medium text-white hover:bg-primary/90 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
+        disabled={isSubmitting || !isFormValid()}
+        className={`w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary disabled:opacity-50 disabled:cursor-not-allowed ${
+          isSubmitting || !isFormValid() 
+            ? "cursor-not-allowed bg-gray-400" 
+            : "cursor-pointer hover:bg-blue-700"
+        }`}
+        style={isFormValid() && !isSubmitting ? {backgroundColor: 'rgb(59 130 246 / var(--tw-bg-opacity, 1))'} : {}}
       >
         {isSubmitting ? (
           <MaterialIcon name="sync" className="animate-spin" />
@@ -319,11 +401,12 @@ export default function SignupForm() {
       </button>
 
       <div className="mt-6 text-center">
-        <p className="text-sm text-subtext-light dark:text-subtext-dark">
+        <p className="text-sm text-subtext-light">
           Already have an account?{" "}
           <Link
             href="/auth/login"
-            className="font-medium text-primary hover:text-primary/80"
+            className="font-medium hover:text-blue-500"
+            style={{color: 'rgb(59 130 246 / var(--tw-bg-opacity, 1))'}}
           >
             Sign in
           </Link>
