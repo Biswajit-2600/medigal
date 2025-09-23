@@ -2,7 +2,6 @@
 import { getServerSession } from "next-auth";
 import { redirect } from "next/navigation";
 import { authOptions } from "@/lib/auth";
-import BottomNav from "@/components/navigation/BottomNav";
 
 interface LayoutProps {
   children: ReactNode;
@@ -17,12 +16,8 @@ export default async function DashboardLayout({ children }: LayoutProps) {
   }
 
   return (
-    <div className="flex min-h-screen flex-col">
-      <header className="bg-white shadow p-4">
-        <h1 className="text-xl font-bold text-blue-600">MediGal - {session.user.name}</h1>
-      </header>
-      <main className="flex-1 px-4 py-6">{children}</main>
-      <BottomNav />
+    <div className="min-h-screen bg-background-light dark:bg-background-dark">
+      {children}
     </div>
   );
 }
