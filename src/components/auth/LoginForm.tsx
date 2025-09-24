@@ -8,6 +8,7 @@ import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { z } from "zod";
 import MaterialIcon from "@/components/ui/MaterialIcons";
+import ErrorPopup from "@/components/ui/ErrorPopup";
 
 const loginSchema = z.object({
   email: z.string().email("Invalid email address").optional(),
@@ -26,6 +27,7 @@ type LoginFormData = z.infer<typeof loginSchema>;
 export default function LoginForm() {
   const router = useRouter();
   const [error, setError] = useState<string | null>(null);
+  const [showErrorPopup, setShowErrorPopup] = useState(false);
   const [loginMethod, setLoginMethod] = useState<"email" | "phone">("email");
   const [isLoading, setIsLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
@@ -60,6 +62,7 @@ export default function LoginForm() {
     try {
       setIsLoading(true);
       setError(null);
+      setShowErrorPopup(false);
 
       const identifier = loginMethod === "email" ? data.email : data.phone;
       
@@ -70,13 +73,15 @@ export default function LoginForm() {
       });
 
       if (result?.error) {
-        setError("Invalid credentials");
+        setError("Invalid Credentials. Please check your email/phone and password and try again.");
+        setShowErrorPopup(true);
         return;
       }
 
       router.push("/dashboard");
     } catch (error) {
-      setError("An error occurred during sign in");
+      setError("An error occurred during sign in. Please try again.");
+      setShowErrorPopup(true);
     } finally {
       setIsLoading(false);
     }
@@ -210,24 +215,31 @@ export default function LoginForm() {
           </div>
         </div>
 
-        {/* Error Message */}
-        {error && (
-          <div className="text-sm text-red-600 text-center">{error}</div>
-        )}
+        {/* Error Message - Removed inline display */}
 
         {/* Submit Button */}
         <div>
           <button
             type="submit"
             disabled={isLoading || !isFormValid()}
-            className={`w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary ${
+            className={`w-full flex justify-center items-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary ${
               isLoading || !isFormValid() 
                 ? 'text-gray-400 bg-gray-300 cursor-not-allowed' 
                 : 'text-white hover:bg-blue-700 cursor-pointer'
             }`}
             style={isFormValid() && !isLoading ? {backgroundColor: 'rgb(59 130 246 / var(--tw-bg-opacity, 1))'} : {}}
           >
-            {isLoading ? "Signing In..." : "Sign In"}
+            {isLoading ? (
+              <>
+                <MaterialIcon name="hourglass_empty" className="animate-spin mr-2" />
+                Signing In...
+              </>
+            ) : (
+              <>
+                <MaterialIcon name="login" className="mr-2" />
+                Sign In
+              </>
+            )}
           </button>
         </div>
       </form>
@@ -245,6 +257,14 @@ export default function LoginForm() {
           </Link>
         </p>
       </div>
+
+      {/* Error Popup */}
+      <ErrorPopup
+        message={error || ""}
+        isVisible={showErrorPopup}
+        onClose={() => setShowErrorPopup(false)}
+        autoCloseMs={6000}
+      />
     </>
   );
 }
