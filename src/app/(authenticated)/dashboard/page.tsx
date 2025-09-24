@@ -65,9 +65,15 @@ export default async function DashboardPage() {
                   </p>
                   <div className="flex items-center justify-between mt-4">
                     <span className="text-sm font-semibold" style={{ color: "#2563EB" }}>2 coins per message</span>
-                    <Link href="/chat" className="text-sm font-semibold flex items-center" style={{ color: "#2563EB" }}>
-                      <span className="hover:underline">Start Chat</span>
-                      <MaterialIcon name="arrow_forward" className="text-base ml-1" style={{ color: "#2563EB" }} />
+                    <Link 
+                      href="/chat" 
+                      className="group relative px-3 py-1.5 text-sm font-semibold bg-gradient-to-r from-blue-600 to-blue-700 text-white rounded-md transition-all duration-300 ease-in-out transform hover:scale-105 hover:shadow-md hover:shadow-blue-500/25 active:scale-95 focus:outline-none focus:ring-2 focus:ring-blue-500/30 focus:ring-offset-1"
+                    >
+                      <span className="relative z-10 flex items-center space-x-1">
+                        <span>Start Chat</span>
+                        <MaterialIcon name="arrow_forward" className="text-sm transition-transform duration-300 group-hover:translate-x-0.5" />
+                      </span>
+                      <div className="absolute inset-0 rounded-md bg-gradient-to-r from-blue-700 to-blue-800 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                     </Link>
                   </div>
                 </div>
@@ -86,9 +92,15 @@ export default async function DashboardPage() {
                   </p>
                   <div className="flex items-center justify-between mt-4">
                     <span className="text-sm font-semibold" style={{ color: "#2563EB" }}>2 coins per message</span>
-                    <Link href="/chat" className="text-sm font-semibold flex items-center" style={{ color: "#2563EB" }}>
-                      <span className="hover:underline">Start Chat</span>
-                      <MaterialIcon name="arrow_forward" className="text-base ml-1" style={{ color: "#2563EB" }} />
+                    <Link 
+                      href="/chat" 
+                      className="group relative px-3 py-1.5 text-sm font-semibold bg-gradient-to-r from-blue-600 to-blue-700 text-white rounded-md transition-all duration-300 ease-in-out transform hover:scale-105 hover:shadow-md hover:shadow-blue-500/25 active:scale-95 focus:outline-none focus:ring-2 focus:ring-blue-500/30 focus:ring-offset-1"
+                    >
+                      <span className="relative z-10 flex items-center space-x-1">
+                        <span>Start Chat</span>
+                        <MaterialIcon name="arrow_forward" className="text-sm transition-transform duration-300 group-hover:translate-x-0.5" />
+                      </span>
+                      <div className="absolute inset-0 rounded-md bg-gradient-to-r from-blue-700 to-blue-800 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                     </Link>
                   </div>
                 </div>
@@ -107,9 +119,15 @@ export default async function DashboardPage() {
                   </p>
                   <div className="flex items-center justify-between mt-4">
                     <span className="text-sm font-semibold" style={{ color: "#2563EB" }}>1 coin per query</span>
-                    <Link href="/chat" className="text-sm font-semibold flex items-center" style={{ color: "#2563EB" }}>
-                      <span className="hover:underline">Start Chat</span>
-                      <MaterialIcon name="arrow_forward" className="text-base ml-1" style={{ color: "#2563EB" }} />
+                    <Link 
+                      href="/chat" 
+                      className="group relative px-3 py-1.5 text-sm font-semibold bg-gradient-to-r from-blue-600 to-blue-700 text-white rounded-md transition-all duration-300 ease-in-out transform hover:scale-105 hover:shadow-md hover:shadow-blue-500/25 active:scale-95 focus:outline-none focus:ring-2 focus:ring-blue-500/30 focus:ring-offset-1"
+                    >
+                      <span className="relative z-10 flex items-center space-x-1">
+                        <span>Start Chat</span>
+                        <MaterialIcon name="arrow_forward" className="text-sm transition-transform duration-300 group-hover:translate-x-0.5" />
+                      </span>
+                      <div className="absolute inset-0 rounded-md bg-gradient-to-r from-blue-700 to-blue-800 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                     </Link>
                   </div>
                 </div>
@@ -128,9 +146,15 @@ export default async function DashboardPage() {
                   </p>
                   <div className="flex items-center justify-between mt-4">
                     <span className="text-sm font-semibold" style={{ color: "#2563EB" }}>Free</span>
-                    <Link href="/chat" className="text-sm font-semibold flex items-center" style={{ color: "#2563EB" }}>
-                      <span className="hover:underline">Start Chat</span>
-                      <MaterialIcon name="arrow_forward" className="text-base ml-1" style={{ color: "#2563EB" }} />
+                    <Link 
+                      href="/chat" 
+                      className="group relative px-3 py-1.5 text-sm font-semibold bg-gradient-to-r from-blue-600 to-blue-700 text-white rounded-md transition-all duration-300 ease-in-out transform hover:scale-105 hover:shadow-md hover:shadow-blue-500/25 active:scale-95 focus:outline-none focus:ring-2 focus:ring-blue-500/30 focus:ring-offset-1"
+                    >
+                      <span className="relative z-10 flex items-center space-x-1">
+                        <span>Start Chat</span>
+                        <MaterialIcon name="arrow_forward" className="text-sm transition-transform duration-300 group-hover:translate-x-0.5" />
+                      </span>
+                      <div className="absolute inset-0 rounded-md bg-gradient-to-r from-blue-700 to-blue-800 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                     </Link>
                   </div>
                 </div>
