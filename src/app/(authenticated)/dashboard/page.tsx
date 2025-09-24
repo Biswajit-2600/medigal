@@ -6,43 +6,15 @@ import Link from "next/link";
 
 export default async function DashboardPage() {
   const session = await getServerSession(authOptions);
-  if (!session) redirect("/auth/login");
+  if (!session) {
+    redirect("/auth/login");
+  }
 
   return (
-    <div className="fixed inset-0 flex overflow-hidden">
-      <div className="flex flex-col flex-1">
-        {/* Header */}
-        <header 
-          className="flex items-center justify-between p-4 border-b border-gray-200"
-          style={{ backgroundColor: "#FFFFFF" }}
-        >
-          <div className="flex items-center space-x-2">
-            <MaterialIcon name="medical_services" className="text-3xl" style={{ color: "#2563EB" }} />
-            <h1 className="text-xl font-bold" style={{ color: "#18181B" }}>
-              MedConsult
-            </h1>
-          </div>
-          <nav className="flex items-center space-x-6">
-            <Link href="/dashboard" className="text-sm font-medium hover:underline" style={{ color: "#2563EB" }}>
-              Dashboard
-            </Link>
-            <Link href="/profile" className="text-sm font-medium hover:underline hover-blue" style={{ color: "rgb(100, 116, 139)" }}>
-              Profile
-            </Link>
-            <Link href="/wallet" className="text-sm font-medium hover:underline hover-blue" style={{ color: "rgb(100, 116, 139)" }}>
-              Wallet
-            </Link>
-            <Link href="/auth/logout" className="text-sm font-medium text-red-500 hover:underline">
-              Logout
-            </Link>
-          </nav>
-        </header>
-        
-        {/* Main Content */}
-        <main className="flex-1 p-6 lg:p-8 overflow-y-auto">
-          <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-3 gap-8">
-            {/* Left Column - Main Content */}
-            <div className="lg:col-span-2 space-y-8">
+    <div className="flex-1 p-6 lg:p-8">
+      <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-3 gap-8">
+        {/* Left Column - Main Content */}
+        <div className="lg:col-span-2 space-y-8">
               {/* Welcome Section */}
               <div>
                 <h2 className="text-3xl font-bold" style={{ color: "#18181B" }}>
@@ -260,8 +232,6 @@ export default async function DashboardPage() {
               </div>
             </div>
           </div>
-        </main>
-      </div>
-    </div>
-  );
+        </div>
+    );
 }

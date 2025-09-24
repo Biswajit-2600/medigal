@@ -9,7 +9,8 @@ export default async function ProfilePage() {
   if (!session) redirect("/auth/login");
 
   return (
-    <div className="mx-auto max-w-3xl space-y-8">
+    <div className="p-6 lg:p-8">
+      <div className="mx-auto max-w-3xl space-y-8">
       <div className="rounded-lg bg-white p-6 shadow">
         <h2 className="text-xl font-semibold text-gray-900">Profile Details</h2>
         <div className="mt-4 space-y-4">
@@ -47,6 +48,7 @@ export default async function ProfilePage() {
         <div className="mt-4">
           <ConsultationHistory consultations={mockConsultations} />
         </div>
+      </div>
       </div>
     </div>
   );

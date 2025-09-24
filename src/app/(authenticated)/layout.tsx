@@ -2,6 +2,7 @@
 import { getServerSession } from "next-auth";
 import { redirect } from "next/navigation";
 import { authOptions } from "@/lib/auth";
+import Navbar from "@/components/navigation/Navbar";
 
 interface LayoutProps {
   children: ReactNode;
@@ -17,7 +18,12 @@ export default async function DashboardLayout({ children }: LayoutProps) {
 
   return (
     <div className="min-h-screen bg-background-light dark:bg-background-dark">
-      {children}
+      <div className="fixed inset-0 flex flex-col overflow-hidden">
+        <Navbar />
+        <main className="flex-1 overflow-y-auto">
+          {children}
+        </main>
+      </div>
     </div>
   );
 }
