@@ -36,8 +36,8 @@ export default function Navbar() {
       style={{ backgroundColor: "#FFFFFF" }}
     >
       <div className="flex items-center space-x-2">
-        <MaterialIcon name="medical_services" className="text-3xl" style={{ color: "#2563EB" }} />
-        <h1 className="text-xl font-bold" style={{ color: "#18181B" }}>
+        <MaterialIcon name="medical_services" style={{ color: "#2563EB", fontSize: "1.875rem" }} />
+        <h1 className="text-2xl font-bold" style={{ color: "#18181B" }}>
           MedConsult
         </h1>
       </div>
