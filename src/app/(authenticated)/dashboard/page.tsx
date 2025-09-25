@@ -1,8 +1,8 @@
-﻿import { getServerSession } from "next-auth";
+import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";
 import { redirect } from "next/navigation";
 import MaterialIcon from "@/components/ui/MaterialIcons";
-import Link from "next/link";
+import LoadingLink from "@/components/ui/LoadingLink";
 
 export default async function DashboardPage() {
   const session = await getServerSession(authOptions);
@@ -37,10 +37,10 @@ export default async function DashboardPage() {
                   <p className="mt-2 opacity-80">
                     Get instant medical information and health guidance from our AI assistant
                   </p>
-                  <button className="mt-6 bg-white font-semibold py-2 px-4 rounded-lg shadow-md hover:bg-gray-100 transition-all duration-300 ease-in-out transform hover:scale-105 hover:shadow-lg hover:shadow-blue-500/25 active:scale-95 focus:outline-none focus:ring-2 focus:ring-blue-500/30 focus:ring-offset-2 flex items-center group cursor-pointer" style={{ color: "#2563EB" }}>
+                  <LoadingLink href="/chat" loadingMessage="Opening Chat..." className="inline-flex mt-6 bg-white font-semibold py-2 px-4 rounded-lg shadow-md hover:bg-gray-100 transition-all duration-300 ease-in-out transform hover:scale-105 hover:shadow-lg hover:shadow-blue-500/25 active:scale-95 focus:outline-none focus:ring-2 focus:ring-blue-500/30 focus:ring-offset-2 items-center group cursor-pointer" style={{ color: "#2563EB" }}>
                     <MaterialIcon name="chat" className="text-lg mr-2 transition-transform duration-300 group-hover:scale-110" style={{ color: "#2563EB" }} />
                     Start Chat Now
-                  </button>
+                  </LoadingLink>
                 </div>
                 <img
                   alt="AI Robot"
@@ -65,7 +65,7 @@ export default async function DashboardPage() {
                   </p>
                   <div className="flex items-center justify-between mt-4">
                     <span className="text-sm font-semibold" style={{ color: "#2563EB" }}>2 coins per message</span>
-                    <Link 
+                    <LoadingLink 
                       href="/chat" 
                       className="group relative px-3 py-1.5 text-sm font-semibold bg-gradient-to-r from-blue-600 to-blue-700 text-white rounded-md transition-all duration-300 ease-in-out transform hover:scale-105 hover:shadow-md hover:shadow-blue-500/25 active:scale-95 focus:outline-none focus:ring-2 focus:ring-blue-500/30 focus:ring-offset-1"
                     >
@@ -74,7 +74,7 @@ export default async function DashboardPage() {
                         <MaterialIcon name="arrow_forward" className="text-sm transition-transform duration-300 group-hover:translate-x-0.5" />
                       </span>
                       <div className="absolute inset-0 rounded-md bg-gradient-to-r from-blue-700 to-blue-800 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                    </Link>
+                    </LoadingLink>
                   </div>
                 </div>
                 
@@ -92,7 +92,7 @@ export default async function DashboardPage() {
                   </p>
                   <div className="flex items-center justify-between mt-4">
                     <span className="text-sm font-semibold" style={{ color: "#2563EB" }}>2 coins per message</span>
-                    <Link 
+                    <LoadingLink 
                       href="/chat" 
                       className="group relative px-3 py-1.5 text-sm font-semibold bg-gradient-to-r from-blue-600 to-blue-700 text-white rounded-md transition-all duration-300 ease-in-out transform hover:scale-105 hover:shadow-md hover:shadow-blue-500/25 active:scale-95 focus:outline-none focus:ring-2 focus:ring-blue-500/30 focus:ring-offset-1"
                     >
@@ -101,7 +101,7 @@ export default async function DashboardPage() {
                         <MaterialIcon name="arrow_forward" className="text-sm transition-transform duration-300 group-hover:translate-x-0.5" />
                       </span>
                       <div className="absolute inset-0 rounded-md bg-gradient-to-r from-blue-700 to-blue-800 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                    </Link>
+                    </LoadingLink>
                   </div>
                 </div>
                 
@@ -119,7 +119,7 @@ export default async function DashboardPage() {
                   </p>
                   <div className="flex items-center justify-between mt-4">
                     <span className="text-sm font-semibold" style={{ color: "#2563EB" }}>1 coin per query</span>
-                    <Link 
+                    <LoadingLink 
                       href="/chat" 
                       className="group relative px-3 py-1.5 text-sm font-semibold bg-gradient-to-r from-blue-600 to-blue-700 text-white rounded-md transition-all duration-300 ease-in-out transform hover:scale-105 hover:shadow-md hover:shadow-blue-500/25 active:scale-95 focus:outline-none focus:ring-2 focus:ring-blue-500/30 focus:ring-offset-1"
                     >
@@ -128,7 +128,7 @@ export default async function DashboardPage() {
                         <MaterialIcon name="arrow_forward" className="text-sm transition-transform duration-300 group-hover:translate-x-0.5" />
                       </span>
                       <div className="absolute inset-0 rounded-md bg-gradient-to-r from-blue-700 to-blue-800 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                    </Link>
+                    </LoadingLink>
                   </div>
                 </div>
                 
@@ -146,7 +146,7 @@ export default async function DashboardPage() {
                   </p>
                   <div className="flex items-center justify-between mt-4">
                     <span className="text-sm font-semibold" style={{ color: "#2563EB" }}>Free</span>
-                    <Link 
+                    <LoadingLink 
                       href="/chat" 
                       className="group relative px-3 py-1.5 text-sm font-semibold bg-gradient-to-r from-blue-600 to-blue-700 text-white rounded-md transition-all duration-300 ease-in-out transform hover:scale-105 hover:shadow-md hover:shadow-blue-500/25 active:scale-95 focus:outline-none focus:ring-2 focus:ring-blue-500/30 focus:ring-offset-1"
                     >
@@ -155,7 +155,7 @@ export default async function DashboardPage() {
                         <MaterialIcon name="arrow_forward" className="text-sm transition-transform duration-300 group-hover:translate-x-0.5" />
                       </span>
                       <div className="absolute inset-0 rounded-md bg-gradient-to-r from-blue-700 to-blue-800 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                    </Link>
+                    </LoadingLink>
                   </div>
                 </div>
               </div>
@@ -168,7 +168,7 @@ export default async function DashboardPage() {
                 <h3 className="text-lg font-semibold">Quick Actions</h3>
                 <ul className="mt-4 space-y-4">
                   <li>
-                    <Link href="/profile" className="flex items-center justify-between group">
+                    <LoadingLink href="/profile" className="flex items-center justify-between group">
                       <div className="flex items-center">
                         <div className="w-12 h-12 rounded-full flex items-center justify-center" style={{ backgroundColor: "rgb(219, 234, 254)" }}>
                           <MaterialIcon name="person_outline" style={{ color: "rgb(59, 130, 246)" }} />
@@ -179,10 +179,10 @@ export default async function DashboardPage() {
                         </div>
                       </div>
                       <MaterialIcon name="chevron_right" className="group-hover:text-primary transition-colors" style={{ color: "rgb(100, 116, 139)" }} />
-                    </Link>
+                    </LoadingLink>
                   </li>
                   <li>
-                    <Link href="/wallet" className="flex items-center justify-between group">
+                    <LoadingLink href="/wallet" className="flex items-center justify-between group">
                       <div className="flex items-center">
                         <div className="w-12 h-12 rounded-full flex items-center justify-center" style={{ backgroundColor: "rgb(254, 249, 195)" }}>
                           <MaterialIcon name="account_balance_wallet" style={{ color: "rgb(234, 179, 8)" }} />
@@ -193,7 +193,7 @@ export default async function DashboardPage() {
                         </div>
                       </div>
                       <MaterialIcon name="chevron_right" className="group-hover:text-primary transition-colors" style={{ color: "rgb(100, 116, 139)" }} />
-                    </Link>
+                    </LoadingLink>
                   </li>
                 </ul>
               </div>
@@ -203,7 +203,7 @@ export default async function DashboardPage() {
                 <h3 className="text-lg font-semibold">Recent Chats</h3>
                 <ul className="mt-4 space-y-4">
                   <li>
-                    <Link href="/chat" className="flex items-start group">
+                    <LoadingLink href="/chat" className="flex items-start group">
                       <div className="w-12 h-12 rounded-full flex items-center justify-center" style={{ backgroundColor: "rgb(220, 252, 231)" }}>
                         <MaterialIcon name="chat_bubble_outline" className="text-xl" style={{ color: "rgb(16, 185, 129)" }} />
                       </div>
@@ -213,10 +213,10 @@ export default async function DashboardPage() {
                           Asked about headache symptoms - 2 hours ago
                         </p>
                       </div>
-                    </Link>
+                    </LoadingLink>
                   </li>
                   <li>
-                    <Link href="/chat" className="flex items-start group">
+                    <LoadingLink href="/chat" className="flex items-start group">
                       <div className="w-12 h-12 rounded-full flex items-center justify-center" style={{ backgroundColor: "rgb(219, 234, 254)" }}>
                         <MaterialIcon name="medication" className="text-xl" style={{ color: "rgb(59, 130, 246)" }} />
                       </div>
@@ -226,10 +226,10 @@ export default async function DashboardPage() {
                           Asked about pain medication - Yesterday
                         </p>
                       </div>
-                    </Link>
+                    </LoadingLink>
                   </li>
                   <li>
-                    <Link href="/chat" className="flex items-start group">
+                    <LoadingLink href="/chat" className="flex items-start group">
                       <div className="w-12 h-12 rounded-full flex items-center justify-center" style={{ backgroundColor: "rgb(243, 232, 255)" }}>
                         <MaterialIcon name="bedtime" className="text-xl" style={{ color: "rgb(139, 92, 246)" }} />
                       </div>
@@ -239,7 +239,7 @@ export default async function DashboardPage() {
                           Discussed sleeping issues - 3 days ago
                         </p>
                       </div>
-                    </Link>
+                    </LoadingLink>
                   </li>
                 </ul>
               </div>

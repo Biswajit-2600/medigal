@@ -1,9 +1,9 @@
 "use client";
 
-import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { signOut } from "next-auth/react";
 import MaterialIcon from "@/components/ui/MaterialIcons";
+import LoadingLink from "@/components/ui/LoadingLink";
 
 const navItems = [
   {
@@ -46,9 +46,10 @@ export default function Navbar() {
         {navItems.map((item) => {
           const isActive = pathname === item.href;
           return (
-            <Link 
+            <LoadingLink 
               key={item.name}
-              href={item.href} 
+              href={item.href}
+              loadingMessage={`Loading ${item.name}...`}
               className={`relative px-4 py-2 text-sm font-medium rounded-lg transition-all duration-300 ease-in-out transform hover:scale-105 ${
                 isActive 
                   ? "text-white bg-gradient-to-r from-blue-600 to-blue-700 shadow-xl shadow-gray-400/60" 
@@ -65,7 +66,7 @@ export default function Navbar() {
               {!isActive && (
                 <div className="absolute inset-0 rounded-lg bg-gradient-to-r from-blue-500/0 to-blue-500/0 hover:from-blue-500/5 hover:to-blue-500/10 transition-all duration-300" />
               )}
-            </Link>
+            </LoadingLink>
           );
         })}
         
