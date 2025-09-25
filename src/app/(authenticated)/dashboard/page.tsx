@@ -17,11 +17,14 @@ export default async function DashboardPage() {
         <div className="lg:col-span-2 space-y-8">
               {/* Welcome Section */}
               <div>
-                <h2 className="text-3xl font-bold" style={{ color: "#18181B" }}>
-                  Welcome back, {session.user.name}!
+                <h1 className="text-3xl font-bold mb-2" style={{ color: "#18181B" }}>
+                  Hello {session?.user?.name}, Welcome to <span className="bg-gradient-to-r from-emerald-600 to-teal-600 bg-clip-text text-transparent">Healbi</span>
+                </h1>
+                <h2 className="text-xl font-semibold text-emerald-700 mb-3">
+                  Your trusted partner in holistic health and natural healing
                 </h2>
-                <p className="mt-1" style={{ color: "rgb(100, 116, 139)" }}>
-                  Ready to connect with your AI medical assistant today?
+                <p className="text-base" style={{ color: "rgb(100, 116, 139)" }}>
+                  Ready to connect with your AI homeopathy assistant today?
                 </p>
               </div>
               
@@ -32,10 +35,10 @@ export default async function DashboardPage() {
               >
                 <div>
                   <h3 className="text-2xl font-bold">
-                    Start AI Medical Consultation
+                    Start AI Homeopathy Consultation
                   </h3>
                   <p className="mt-2 opacity-80">
-                    Get instant medical information and health guidance from our AI assistant
+                    Get instant natural healing guidance and homeopathic remedies from our AI assistant
                   </p>
                   <LoadingLink href="/chat" loadingMessage="Opening Chat..." className="inline-flex mt-6 bg-white font-semibold py-2 px-4 rounded-lg shadow-md hover:bg-gray-100 transition-all duration-300 ease-in-out transform hover:scale-105 hover:shadow-lg hover:shadow-blue-500/25 active:scale-95 focus:outline-none focus:ring-2 focus:ring-blue-500/30 focus:ring-offset-2 items-center group cursor-pointer" style={{ color: "#2563EB" }}>
                     <MaterialIcon name="chat" className="text-lg mr-2 transition-transform duration-300 group-hover:scale-110" style={{ color: "#2563EB" }} />
