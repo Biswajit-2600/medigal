@@ -37,8 +37,8 @@ export default async function DashboardPage() {
                   <p className="mt-2 opacity-80">
                     Get instant medical information and health guidance from our AI assistant
                   </p>
-                  <button className="mt-6 bg-white font-semibold py-2 px-4 rounded-lg shadow-md hover:bg-gray-100 transition-colors flex items-center" style={{ color: "#2563EB" }}>
-                    <MaterialIcon name="chat" className="text-lg mr-2" style={{ color: "#2563EB" }} />
+                  <button className="mt-6 bg-white font-semibold py-2 px-4 rounded-lg shadow-md hover:bg-gray-100 transition-all duration-300 ease-in-out transform hover:scale-105 hover:shadow-lg hover:shadow-blue-500/25 active:scale-95 focus:outline-none focus:ring-2 focus:ring-blue-500/30 focus:ring-offset-2 flex items-center group cursor-pointer" style={{ color: "#2563EB" }}>
+                    <MaterialIcon name="chat" className="text-lg mr-2 transition-transform duration-300 group-hover:scale-110" style={{ color: "#2563EB" }} />
                     Start Chat Now
                   </button>
                 </div>
