@@ -90,7 +90,7 @@ export default function LoginForm() {
   return (
     <>
       {/* Login Method Toggle */}
-      <div className="grid grid-cols-2 gap-2 mb-6 bg-gray-100 p-1 rounded-lg">
+      <div className="grid grid-cols-2 gap-2 mb-6 bg-gray-200 p-1 rounded-lg">
         <button
           type="button"
           onClick={() => setLoginMethod("email")}

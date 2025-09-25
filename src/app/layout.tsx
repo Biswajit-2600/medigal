@@ -22,7 +22,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className="light">
-      <body className={`${roboto.variable} font-display overflow-hidden`} style={{ backgroundColor: "#F8FAFC", color: "#18181B" }}>
+      <body className={`${roboto.variable} font-display`} style={{ backgroundColor: "#F1F1F1", color: "#18181B" }}>
         {/* This injects the Material Icons styles */}
         <MaterialIcon name="init" className="hidden" />
         <Providers>

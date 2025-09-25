@@ -5,6 +5,7 @@ import { signOut } from "next-auth/react";
 import { useState } from "react";
 import MaterialIcon from "@/components/ui/MaterialIcons";
 import LoadingLink from "@/components/ui/LoadingLink";
+import { useLoading } from "@/contexts/LoadingContext";
 
 const navItems = [
   {
@@ -27,6 +28,7 @@ const navItems = [
 export default function Navbar() {
   const pathname = usePathname();
   const [showLogoutModal, setShowLogoutModal] = useState(false);
+  const { showLoading } = useLoading();
 
   const handleLogout = () => {
     signOut({ callbackUrl: "/auth/login" });
@@ -38,6 +40,7 @@ export default function Navbar() {
 
   const handleConfirmLogout = () => {
     setShowLogoutModal(false);
+    showLoading("Signing you out...");
     handleLogout();
   };
 

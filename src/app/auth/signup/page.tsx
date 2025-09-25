@@ -6,7 +6,7 @@ export default async function SignupPage() {
   await requireNoAuth();
   
   return (
-    <div className="bg-background-light font-display">
+    <div className="bg-background-light font-display min-h-screen">
       <div className="py-8 px-4">
         <div className="w-full max-w-md mx-auto space-y-8">
           <div className="text-center">
