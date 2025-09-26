@@ -165,21 +165,25 @@ export default function LoginForm() {
               autoComplete="current-password"
               placeholder="Enter your password"
               {...register("password")}
-              className="block w-full pl-10 pr-12 py-2 border-0 rounded-md leading-5 bg-white text-text-light placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary shadow-sm sm:text-sm"
+              className={`block w-full pl-10 py-2 border-0 rounded-md leading-5 bg-white text-text-light placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary shadow-sm sm:text-sm ${
+                watchedValues.password && watchedValues.password.length > 0 ? 'pr-12' : 'pr-3'
+              }`}
             />
-            <div className="absolute inset-y-0 right-0 pr-3 flex items-center justify-center">
-              <button
-                type="button"
-                onClick={() => setShowPassword(!showPassword)}
-                className="text-gray-400 hover:text-gray-600 focus:outline-none flex items-center justify-center"
-                style={{ cursor: 'pointer' }}
-              >
-                <MaterialIcon 
-                  name={showPassword ? "visibility_off" : "visibility"} 
-                  className="text-gray-400 hover:text-gray-600"
-                />
-              </button>
-            </div>
+            {watchedValues.password && watchedValues.password.length > 0 && (
+              <div className="absolute inset-y-0 right-0 pr-3 flex items-center justify-center">
+                <button
+                  type="button"
+                  onClick={() => setShowPassword(!showPassword)}
+                  className="text-gray-400 hover:text-gray-600 focus:outline-none flex items-center justify-center transition-opacity duration-200"
+                  style={{ cursor: 'pointer' }}
+                >
+                  <MaterialIcon 
+                    name={showPassword ? "visibility_off" : "visibility"} 
+                    className="text-gray-400 hover:text-gray-600"
+                  />
+                </button>
+              </div>
+            )}
           </div>
           {errors.password && (
             <p className="mt-1 text-sm text-red-600">{errors.password.message}</p>
@@ -207,10 +211,12 @@ export default function LoginForm() {
           <div className="text-sm">
             <Link
               href="/auth/forgot-password"
-              className="font-medium hover:text-blue-500"
+              className="font-medium relative transition-all duration-300 hover:text-blue-600 group"
               style={{color: 'rgb(59 130 246 / var(--tw-bg-opacity, 1))'}}
             >
-              Forgot Password?
+              <span className="relative z-10">Forgot Password?</span>
+              <div className="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-blue-500 to-blue-600 group-hover:w-full transition-all duration-300 ease-out"></div>
+              <div className="absolute inset-0 bg-gradient-to-r from-blue-500/10 to-blue-600/10 rounded-md opacity-0 group-hover:opacity-100 transition-opacity duration-300 blur-sm"></div>
             </Link>
           </div>
         </div>
@@ -222,10 +228,10 @@ export default function LoginForm() {
           <button
             type="submit"
             disabled={isLoading || !isFormValid()}
-            className={`w-full flex justify-center items-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary ${
+            className={`w-full flex justify-center items-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary transition-all duration-200 ${
               isLoading || !isFormValid() 
                 ? 'text-gray-400 bg-gray-300 cursor-not-allowed' 
-                : 'text-white hover:bg-blue-700 cursor-pointer'
+                : 'text-white bg-blue-600 hover:scale-[1.03] hover:shadow-lg cursor-pointer'
             }`}
             style={isFormValid() && !isLoading ? {backgroundColor: 'rgb(59 130 246 / var(--tw-bg-opacity, 1))'} : {}}
           >
@@ -246,16 +252,18 @@ export default function LoginForm() {
 
       {/* Sign Up Link */}
       <div className="text-center mt-6">
-        <p className="text-sm text-subtext-light">
+        <div className="text-sm text-subtext-light">
           Don't have an account?{" "}
           <Link
             href="/auth/signup"
-            className="font-medium hover:text-blue-500"
+            className="font-medium relative transition-all duration-300 hover:text-blue-600 group inline-block"
             style={{color: 'rgb(59 130 246 / var(--tw-bg-opacity, 1))'}}
           >
-            Sign up
+            <span className="relative z-10">Sign up</span>
+            <div className="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-blue-500 to-blue-600 group-hover:w-full transition-all duration-300 ease-out"></div>
+            <div className="absolute inset-0 bg-gradient-to-r from-blue-500/10 to-blue-600/10 rounded-md opacity-0 group-hover:opacity-100 transition-opacity duration-300 blur-sm"></div>
           </Link>
-        </p>
+        </div>
       </div>
 
       {/* Error Popup */}

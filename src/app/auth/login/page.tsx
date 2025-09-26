@@ -13,12 +13,25 @@ export default async function LoginPage() {
   }
   
   return (
-    <div className="bg-background-light h-screen overflow-hidden font-display">
-      <div className="flex items-center justify-center h-full pt-4 pb-20">
-        <div className="w-full max-w-md p-8 space-y-8">
+    <>
+      <style>{`
+        html::-webkit-scrollbar,
+        body::-webkit-scrollbar {
+          display: none;
+        }
+        html,
+        body {
+          scrollbar-width: none;
+          overflow: hidden;
+          height: 100vh;
+        }
+      `}</style>
+      <div className="bg-background-light h-screen overflow-hidden font-display">
+        <div className="flex items-center justify-center h-full px-4">
+        <div className="w-full max-w-sm pt-0 pb-16 space-y-8">
           <div className="text-center">
-            <div className="inline-flex items-center justify-center w-16 h-16 mb-6 rounded-full" style={{backgroundColor: 'rgb(59 130 246 / var(--tw-bg-opacity, 1))'}}>
-              <MaterialIcon name="medical_services" className="text-white" style={{fontSize: '36px'}} />
+            <div className="flex items-center justify-center mb-3">
+              <MaterialIcon name="eco" className="text-emerald-600" style={{fontSize: '72px'}} />
             </div>
             <h1 className="text-3xl font-bold text-text-light">
               Welcome Back
@@ -39,5 +52,6 @@ export default async function LoginPage() {
         </div>
       </div>
     </div>
+    </>
   );
 }
