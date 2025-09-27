@@ -73,15 +73,18 @@ export default function ForgotPasswordForm() {
         Send reset instructions
       </Button>
 
-      <p className="text-center text-sm text-gray-600">
+      <div className="text-center text-sm text-gray-600">
         Remember your password?{" "}
         <Link
           href="/auth/login"
-          className="font-medium text-blue-600 hover:text-blue-500"
+          className="font-medium relative transition-all duration-300 hover:text-blue-600 group inline-block"
+          style={{color: 'rgb(59 130 246 / var(--tw-bg-opacity, 1))'}}
         >
-          Sign in
+          <span className="relative z-10">Sign in</span>
+          <div className="absolute bottom-0 left-0 w-0 bg-gradient-to-r from-blue-500 to-blue-600 group-hover:w-full transition-all duration-300 ease-out" style={{height: '1px'}}></div>
+          <div className="absolute inset-0 bg-gradient-to-r from-blue-500/10 to-blue-600/10 rounded-md opacity-0 group-hover:opacity-100 transition-opacity duration-300 blur-sm"></div>
         </Link>
-      </p>
+      </div>
     </form>
   );
 }
